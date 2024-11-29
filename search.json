@@ -2,16 +2,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "My Final Project Template",
+    "title": "Exploring Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data",
     "section": "",
-    "text": "[~ 200 words]\nClearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way. Include figures if you like."
+    "text": "install.packages(“rmarkdown”) library(rmarkdown) library(knitr)"
   },
   {
     "objectID": "index.html#download-and-clean-all-required-data",
     "href": "index.html#download-and-clean-all-required-data",
-    "title": "My Final Project Template",
+    "title": "Exploring Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data",
     "section": "Download and clean all required data",
-    "text": "Download and clean all required data\n\nn=20\ndata=data.frame(x=runif(n,-180,180),\n                y=runif(n,-60,60),\n                size = runif(n, 5, 20),\n                category = factor(\n                  sample(letters[1:5], n, replace = TRUE)\n                  ),\n                value = rnorm(n))\n\ndata %&gt;% \n  slice(1:10) %&gt;% #show only 1:n rows\n  kable(digits=2,align=\"c\")%&gt;% #make table and round to two digits\n  kable_styling(bootstrap_options = \n                  c(\"striped\", \"hover\", \"condensed\", \"responsive\")) #apply other formatting\n\n\n\n\nx\ny\nsize\ncategory\nvalue\n\n\n\n\n-22.14\n8.34\n11.03\nd\n-0.52\n\n\n-168.05\n-12.94\n16.09\nd\n1.36\n\n\n-55.78\n50.48\n5.83\nb\n0.56\n\n\n145.70\n-38.27\n16.25\nd\n0.15\n\n\n122.16\n-56.32\n18.39\nd\n-0.64\n\n\n115.83\n-3.21\n8.33\nb\n-0.84\n\n\n30.33\n-36.85\n9.46\ne\n2.10\n\n\n-59.89\n57.96\n9.68\na\n1.26\n\n\n-60.44\n-33.04\n13.28\ne\n-0.26\n\n\n164.92\n-51.04\n8.96\na\n-0.52\n\n\n\n\n\n\nAdd any additional processing steps here."
+    "text": "Download and clean all required data\n\nn=20\ndata=data.frame(x=runif(n,-180,180),\n                y=runif(n,-60,60),\n                size = runif(n, 5, 20),\n                category = factor(\n                  sample(letters[1:5], n, replace = TRUE)\n                  ),\n                value = rnorm(n))\n\ndata %&gt;% \n  slice(1:10) %&gt;% #show only 1:n rows\n  kable(digits=2,align=\"c\")%&gt;% #make table and round to two digits\n  kable_styling(bootstrap_options = \n                  c(\"striped\", \"hover\", \"condensed\", \"responsive\")) #apply other formatting\n\n\n\n\nx\ny\nsize\ncategory\nvalue\n\n\n\n\n-121.21\n20.77\n18.01\na\n-0.38\n\n\n-60.20\n7.73\n18.96\nd\n-1.02\n\n\n-98.45\n-1.60\n11.36\nd\n0.23\n\n\n165.32\n58.35\n7.92\nb\n-0.12\n\n\n-62.88\n59.94\n17.39\ne\n0.04\n\n\n-3.56\n50.96\n15.00\nc\n-0.25\n\n\n28.68\n-37.78\n6.84\ne\n0.31\n\n\n-96.77\n-1.67\n5.97\nd\n-0.33\n\n\n-103.83\n15.06\n11.45\na\n1.19\n\n\n-128.15\n0.26\n11.78\na\n0.81\n\n\n\n\n\n\nAdd any additional processing steps here."
   },
   {
     "objectID": "data/Readme.html",
