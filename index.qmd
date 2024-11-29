@@ -1,5 +1,5 @@
 ---
-title: "Exploring Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data"
+title: "Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data"
 author: Festus Adegbola
 subtitle: GEO511
 date: today
@@ -12,6 +12,8 @@ library(knitr)
 # Introduction
 
 The Osprey (Pandion haliaetus) is a migratory bird species with a broad distribution across North America. This project will explore seasonal trends in Osprey occurrences across the United States by comparing the geographic distribution and timing of sightings in Flickr photos with data from eBird. The primary goal is to assess whether trends in the presence and migration patterns of Ospreys, as seen in Flickr images, match the migration data reported in eBird. By doing so, the project seeks to provide insight into the correlation between photo-based citizen science data and formal bird observation databases, as well as to highlight how social media platforms like Flickr can contribute to ecological studies.
+
+Obligate Migrants 
 
 # Materials and methods
 Flickr Photos: Flickr’s public API will be used to gather geotagged images of Ospreys from across the U.S. by querying hashtags such as "#Osprey" and related keywords.
@@ -44,15 +46,31 @@ See <http://rmarkdown.rstudio.com/> for all the amazing things you can do.
 
 Here's my first code chunk.
 
-```{r}
-x=3+4
-```
-
-Refer to output in your narrative like this: x=`r x` .
-
-Load any required packages in a code chunk (you may need to install some packages):
-
-```{r, message=F, warning=F}
+Let's start by loading required Libraries
+```{r, message = FALSE, warning=FALSE}
+install.packages("FlickrAPI")
+library(FlickrAPI)
+install.packages("httr")
+install.packages("jsonlite")
+library(httr)
+library(jsonlite)
+install.packages("devtools")
+library(devtools)
+library(photosearcher)
+library(sf)
+install.packages("usmapdata")
+library(usmapdata)
+install.packages("maps")
+library(maps)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+install.packages("USA.state.boundaries")
+library(USA.state.boundaries)
+library(raster)
+library(forcats)
+remotes::install_github("CornellLabofOrnithology/auk")
+library(auk)
 install.packages("tidyverse")
 install.packages("kableExtra")
 install.packages("htmlwidgets")
@@ -64,6 +82,10 @@ library(widgetframe)
 knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' ) 
 knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
 ```
+
+
+
+
 
 ## Download and clean all required data
 
