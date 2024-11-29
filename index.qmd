@@ -1,16 +1,17 @@
 ---
-title: "My Final Project Template"
-author: Your name here
-subtitle: Subtitle here if desired
+title: "Exploring Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data"
+author: Festus Adegbola
+subtitle: GEO511
 date: today
 date-format: long
 ---
+install.packages("rmarkdown")
+library(rmarkdown)
+library(knitr)
 
 # Introduction
 
-\[\~ 200 words\]
-
-Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way. Include figures if you like.
+The Osprey (Pandion haliaetus) is a migratory bird species with a broad distribution across North America. This project will explore seasonal trends in Osprey occurrences across the United States by comparing the geographic distribution and timing of sightings in Flickr photos with data from eBird. The primary goal is to assess whether trends in the presence and migration patterns of Ospreys, as seen in Flickr images, match the migration data reported in eBird. By doing so, the project seeks to provide insight into the correlation between photo-based citizen science data and formal bird observation databases, as well as to highlight how social media platforms like Flickr can contribute to ecological studies.
 
 # Materials and methods
 
@@ -47,8 +48,11 @@ Refer to output in your narrative like this: x=`r x` .
 Load any required packages in a code chunk (you may need to install some packages):
 
 ```{r, message=F, warning=F}
+install.packages("tidyverse")
+install.packages("kableExtra")
+install.packages("htmlwidgets")
+install.packages("widgetframe")
 library(tidyverse)
-library(leaflet)
 library(kableExtra)
 library(htmlwidgets)
 library(widgetframe)
@@ -87,13 +91,6 @@ Tables and figures (maps and other graphics) are carefully planned to convey the
 
 Show tables, plots, etc. and describe them.
 
-```{r, fig.width=6, fig.height=3, fig.cap="Map of completely random data"}
-m <- leaflet(data) %>% 
-  addTiles() %>% 
-  addCircleMarkers(~x, ~y, radius = ~size,color = ~as.factor(category)) %>% 
-  addPopups(~x[2], ~y[2], "Random popup")
-m  # a map with the default OSM tile layer
-```
 
 ```{r}
 data %>% 
@@ -103,11 +100,7 @@ data %>%
 
 ### Dygraphs Example
 
-```{r}
-library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures") |> 
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01")) 
-```
+
 
 # Conclusions
 
