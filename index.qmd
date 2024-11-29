@@ -14,8 +14,13 @@ library(knitr)
 The Osprey (Pandion haliaetus) is a migratory bird species with a broad distribution across North America. This project will explore seasonal trends in Osprey occurrences across the United States by comparing the geographic distribution and timing of sightings in Flickr photos with data from eBird. The primary goal is to assess whether trends in the presence and migration patterns of Ospreys, as seen in Flickr images, match the migration data reported in eBird. By doing so, the project seeks to provide insight into the correlation between photo-based citizen science data and formal bird observation databases, as well as to highlight how social media platforms like Flickr can contribute to ecological studies.
 
 # Materials and methods
+Flickr Photos: Flickr’s public API will be used to gather geotagged images of Ospreys from across the U.S. by querying hashtags such as "#Osprey" and related keywords.
+Timeframe: Images will be filtered by date to analyze seasonal trends.
+API Documentation: Flickr API
 
-\[\~ 200 words\]
+
+eBird Data:eBird’s occurrence and observation data will be accessed through their data portal, focusing on Osprey sightings across the U.S. The data will include location, date, and number of birds observed.
+
 
 Narrative: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.
 
