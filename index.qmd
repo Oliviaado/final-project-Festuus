@@ -28,7 +28,7 @@ eBird data will be downloaded from the eBird data products website and processed
 
 Let's start by installing and loading the required R libraries:
 
-```{r, message = FALSE, warning=FALSE}
+```{r, message = FALSE, warning=FALSE, results=FALSE}
 install.packages("FlickrAPI")
 install.packages("httr")
 install.packages("jsonlite")
@@ -42,8 +42,10 @@ install.packages("kableExtra")
 install.packages("htmlwidgets")
 install.packages("widgetframe")
 devtools::install_github("nfox29/photosearcher")
-install.packages("rmarkdown")
 
+```
+
+```{r, message = FALSE, warning=FALSE, results=FALSE}
 library(FlickrAPI)
 library(httr)
 library(jsonlite)
@@ -58,16 +60,26 @@ library(USA.state.boundaries)
 library(forcats)
 library(auk)
 library(tidyverse)
+library(rmarkdown)
+library(knitr)
 library(kableExtra)
 library(htmlwidgets)
 library(widgetframe)
 library(photosearcher)
-library(rmarkdown)
-library(knitr)
 knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' ) 
 knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
 ```
 
+```{r include=FALSE}
+# Load renv
+library(renv)
+
+# Check status
+renv::status()
+
+# Synchronize the project
+renv::snapshot()
+```
 
 #Retrieving Flickr Photos 
 
