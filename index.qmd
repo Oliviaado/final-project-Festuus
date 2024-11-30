@@ -28,7 +28,7 @@ eBird data will be downloaded from the eBird data products website and processed
 
 Let's start by installing and loading the required R libraries:
 
-```{r, message = FALSE, warning=FALSE, echo = FALSE}
+```{r, message = FALSE, warning=FALSE}
 install.packages("FlickrAPI")
 install.packages("httr")
 install.packages("jsonlite")
