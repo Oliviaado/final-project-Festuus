@@ -9,7 +9,7 @@
 <meta name="author" content="Festus Adegbola">
 <meta name="dcterms.date" content="2024-11-30">
 
-<title>Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data – GEO511_FinalProject</title>
+<title>Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos – GEO511_FinalProject</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data</h1>
+<h1 class="title">Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos</h1>
 <p class="subtitle lead">GEO511</p>
 </div>
 
@@ -247,348 +247,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><pre><code>Set up minimum and maximum date (2000-2024, in this case)</code></pre></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FlickrAPIRequest</span>(<span class="at">method =</span> <span class="st">"flickr.photos.getRecent"</span>, <span class="at">api_key =</span> <span class="st">"45cb9a347398093381ab361618175b82"</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">format =</span> <span class="st">"json"</span>, <span class="at">simplifyVector =</span> T, <span class="at">check_type =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$photos
-$photos$page
-[1] 1
-
-$photos$pages
-[1] 10
-
-$photos$perpage
-[1] 100
-
-$photos$total
-[1] 1000
-
-$photos$photo
-             id         owner     secret server farm
-1   54172420587  44504567@N00 39f340d315  65535   66
-2   54172421107 201489660@N05 6c9ef4e4a1  65535   66
-3   54172421702  94992100@N00 78aa9b8201  65535   66
-4   54172425057 156864353@N02 8004e8cb14  65535   66
-5   54172425377 201852622@N02 9cb0255a1a  65535   66
-6   54172425657 201524937@N08 1817c39995  65535   66
-7   54172426022  99866533@N05 914f834b35  65535   66
-8   54172427997  26552211@N02 e3ce5f16b1  65535   66
-9   54172428882 142555568@N05 e83c646710  65535   66
-10  54172428922 110507127@N08 7a3de33c5b  65535   66
-11  54172430262  24073838@N02 543eb7d49e  65535   66
-12  54172430637 113528226@N06 d12f0ffeac  65535   66
-13  54172433257 201879607@N05 83da0eef92  65535   66
-14  54172434682 194036580@N02 b7b5025ebf  65535   66
-15  54172436482  97099263@N03 505e857203  65535   66
-16  54172436757 201567112@N04 e7779e33cb  65535   66
-17  54172439087  64782986@N02 0f2062b5d9  65535   66
-18  54172440272  58835071@N04 38cfe2fc2c  65535   66
-19  54172440727 198600382@N03 72a92345ed  65535   66
-20  54172440922  53181013@N03 d7229d58cb  65535   66
-21  54172441482 191493143@N05 b0c3b9a694  65535   66
-22  54172441997  14581164@N00 452ffd1b5f  65535   66
-23  54172442262  83894187@N04 6e81a93373  65535   66
-24  54172442907 201628379@N05 e17ecffbcc  65535   66
-25  54173309336 201787969@N06 d636c1ab55  65535   66
-26  54173309516 201025885@N07 7025c3f2d3  65535   66
-27  54173310011 188232447@N07 e67c0d663c  65535   66
-28  54173311696 156172222@N06 577b4efcf1  65535   66
-29  54173312476  30126548@N00 967b948ab8  65535   66
-30  54173312951 201804169@N03 62a6775699  65535   66
-31  54173316256 198144013@N02 f345a31c02  65535   66
-32  54173317131 201818509@N02 0fb4b4bbe1  65535   66
-33  54173318921  78051834@N00 5ef569d966  65535   66
-34  54173318971 196509394@N08 b84fcd137d  65535   66
-35  54173319821  38741772@N03 ae9b46386a  65535   66
-36  54173319961 163807650@N02 862a20a38b  65535   66
-37  54173321106  91753616@N00 ebacb74b5d  65535   66
-38  54173322061  66386050@N03 dce61617bc  65535   66
-39  54173324836  32320154@N05 b3841c3b7b  65535   66
-40  54173325361 199284577@N07 73cb037d81  65535   66
-41  54173326351 184510097@N05 11eca1e802  65535   66
-42  54173326566  11568687@N08 32a0c4f5d3  65535   66
-43  54173326621   7919353@N04 5ccc47af21  65535   66
-44  54173327106  87954630@N00 642913b88b  65535   66
-45  54173327556 191727799@N06 6e9e0f1378  65535   66
-46  54173327921 200559597@N05 64341a14e3  65535   66
-47  54173328116 201862245@N03 618dc28787  65535   66
-48  54173328771  47045394@N03 ff9429389b  65535   66
-49  54173329786 201892031@N02 82e2271900  65535   66
-50  54173579078 200349196@N06 57a7663903  65535   66
-51  54173580493  46625176@N00 9b7e6d2d86  65535   66
-52  54173583183 198731759@N04 942d21d0df  65535   66
-53  54173583553  15914448@N05 63878b4126  65535   66
-54  54173583858 200293082@N05 fe33bd4e3e  65535   66
-55  54173584868  28311083@N04 cd2e3a5189  65535   66
-56  54173585788 200101632@N04 e7768d910b  65535   66
-57  54173588243 196114130@N07 1d98183479  65535   66
-58  54173590708 192915753@N02 1af4f17632  65535   66
-59  54173592353  28332487@N04 05ff028b4d  65535   66
-60  54173594783 161897616@N06 8467558547  65535   66
-61  54173597143 200097813@N03 350a78c3d6  65535   66
-62  54173599478   8975320@N08 6d675942c0  65535   66
-63  54173599543 195843958@N08 caa0b2ca41  65535   66
-64  54173609279 200873482@N04 3afc175f9c  65535   66
-65  54173611914 130396812@N06 c57ec78b51  65535   66
-66  54173612509 200486980@N07 6f8f8cd03c  65535   66
-67  54173615129  30530543@N06 33b96e0e58  65535   66
-68  54173616059 201172223@N05 90c59b5943  65535   66
-69  54173617299 201748585@N04 910f50dacc  65535   66
-70  54173617649 198723828@N02 2ee968e3b0  65535   66
-71  54173617774 201296215@N02 eeb0c6b915  65535   66
-72  54173617944  12639178@N07 c2ab60c9fa  65535   66
-73  54173619594  39944947@N08 54b2e39dcd  65535   66
-74  54173620224  30272096@N08 e0acf92fa9  65535   66
-75  54173620469  48137759@N00 4cf8a8e53c  65535   66
-76  54173621454 201812104@N05 61267dd4f2  65535   66
-77  54173621784 166479083@N04 49576048b9  65535   66
-78  54173622374  10929695@N02 031084a113  65535   66
-79  54173625104 201883549@N03 abef24b134  65535   66
-80  54173626474 149039415@N05 31db3682b4  65535   66
-81  54173626959 201807000@N07 86290812a3  65535   66
-82  54173627674 101398523@N07 686f427bca  65535   66
-83  54173627909  33635006@N06 609304b48f  65535   66
-84  54173627974  48960041@N07 9ccaeb5e41  65535   66
-85  54173628324  51871391@N08 2be04d133e  65535   66
-86  54173628649  59933918@N08 c5cd896a30  65535   66
-87  54173628749  90957910@N00 b5b3bce9da  65535   66
-88  54173748210 193820416@N05 90f958ca85  65535   66
-89  54173749540 200281775@N06 471e0df0ca  65535   66
-90  54173752605  60687745@N07 9559e0a013  65535   66
-91  54173754160 193867061@N08 52af24902b  65535   66
-92  54173756065  15384688@N00 14ddb1c394  65535   66
-93  54173758160 149567335@N07 0387462274  65535   66
-94  54173762965  47241502@N00 1ccd650bd2  65535   66
-95  54173763965 145489125@N03 ec06c87e5f  65535   66
-96  54173765400 128990360@N02 08e9d2faca  65535   66
-97  54173767205 198173785@N06 f956b9fc58  65535   66
-98  54173767450 201839406@N02 4dba865b7a  65535   66
-99  54173768870 201958556@N08 b4ac811344  65535   66
-100 54173770470 143372115@N08 4884ac86f4  65535   66
-                                                                                                                                                            title
-1                                                                                                                                                                
-2                                                                                                                                          DavidRamseyPhoto-1.jpg
-3                                                                                                                                               Thanksgiving 2025
-4                                                                                                                       San Diego Padres Batting Friar Custom Hat
-5                                                                                                                                                 2024 “Exposure”
-6                                                                                                                                                Medal_ncH4JiCVZo
-7                                                                                               Winter Wonderland in Mist Valley -Coming Home At A Long Day's End
-8                                                                                                                                 The Dry Cleaning Man’s Daughter
-9                                                                                                                                    I have never ridden the SLRR
-10                                                                                                                                  Retro Game Night: Donkey Kong
-11                                                                                                                                        With faux patent jacket
-12                                                                                                                                                Daypic 2024/274
-13                                                                                                                                                20240120_120016
-14                                                                                                                                                 Out for a ride
-15                                                                                                                                             ha_2024-11-30-1350
-16                                                                                                                                                       5Z2A3703
-17                                                                                                                                         台中（興農）高爾夫球場
-18                                                                                                                                                Verschlusssache
-19                                                                                                                                                     Plant Life
-20                                                                                                                                                               
-21                                                                            Lady Conny Klarleder - Not better for you! But I love it! Honestly! Cute! 😁😘💕❤️💋
-22                                                                                                                                                               
-23                                                                                                                                 Oakland Cemetery, St. Paul, MN
-24                                                                                                                                             Discord_HfkYmUqtYj
-25                                                                                                                                                 Casa do Oleiro
-26                                                                                                                                               Medal_pJYchWgXLI
-27                                                                                                                               I sure wish this was in HO scale
-28                                                                                                                                              Northern Cardinal
-29                                                                                                                                               半炒飯とラーメン
-30                                                                                                   Prolaktin Hormonu Eksikliği: 10 Belirtisi Nedenleri Tedavisi
-31                                                                                                                                                               
-32                                                                                                                              FiveM_b3095_GTAProcess_OYzevM99un
-33                                                                                                                                334/366 - National Flossing Day
-34                                                                                                                                                Northern Lights
-35                                                                                                                 小田原文学館本館　Odawara Museum of Literature
-36                                                                                                                                       MEITU_20240816_193637813
-37                                                                                                                                        Hiroshima to Miyajimahu
-38                                                                                                                                                               
-39                                                                                                                                             Paseo por la playa
-40                                                                                                                                                   RCAR8047 (1)
-41                                                                                                                                  BRAZIL 2nd game in Diamantina
-42                                                                                                                                           1985 Opel Manta GT/E
-43                                                                                                                                                               
-44                                                                                                                               20241130 13:45 Hakodate Hokkaido
-45                                                                                                                                                Photograph #257
-46                                                                                                                                                Code_Qc5EjOVNKk
-47                                                                                                                              FiveM_b3095_GTAProcess_mCjf0Sy0U4
-48                                                                                                                                                   IMG_0008.CR2
-49                                                                                                                              FiveM_b3095_GTAProcess_qWZPB0h5l7
-50                                                                                                                              FiveM_b2802_GTAProcess_iLxiVJEMZO
-51                                                                                                                                         Sonobe Wheel Variation
-52                                                                                                                                                 Mira in nature
-53  Adult Bald Eagle perched on its favorite tree on a cold blustery day with snow bands all around the area. Montezuma National Wildlife Refuge Seneca Falls, NY
-54                                                                                                                                               11월30일13시42분
-55                                                                                                                                            IMG_20241130_114228
-56                                                                                                                                                    DSC_8590-01
-57                                                                                                                                                       Mercedes
-58                                                                                                                                          A&amp;O, Hampton Junction
-59                                                                                                                                                          Twins
-60                                                                                                குழந்தையோடு  விளையாடும்போது இது மட்டும் பண்ணிடாதீங்க #safety #kidsplay
-61                                                                                                                     Azərbaycan Dövlət Akademik Musiqili Teatrı
-62                                                                                                                      Last Read with Cooper of 2024 on 11.25.24
-63                                                                                                                                                               
-64                                                                                                                                             Elegant Simplicity
-65                                                                                                          Churros con chocolate  Chocolatria San Grimes Madrid.
-66                                                                                                                                             Discord_4ydxDLOye3
-67                                                                                                                                                 “Saluda River”
-68                                                                                                                                           Ukuthulisa iziphepho
-69                                                                                                                                         A glimmer of hope.....
-70                                                                                                                                                     W18QtLTdR6
-71                                                                                                                              FiveM_b2944_GTAProcess_d1TPcJZ9vp
-72                                                                                                                                                    Rotkehlchen
-73                                                                                                                                                               
-74                                                                                                                                                               
-75                                                                                                                                                   heart bridge
-76                                                                                                                              FiveM_b2944_GTAProcess_eoCty0kKE9
-77                                                                                                                                                  Yvonne Pepeli
-78                                                                                                                                                            333
-79                                                                                                                              FiveM_b2944_GTAProcess_jR7pukcpOo
-80                                                                                                                                 Black Friday - nature for free
-81                                                                                                                                             Discord_JjeVPurBRz
-82                                                                                                                          From Henry ! Miller Devil in Paradise
-83                                                                                                                                             Non posso decidere
-84                                                                                                                                                  Wine Shipment
-85                                                                                                                                071 Caap Christmas Party 2023 1
-86                                                                                                                                                     El llamado
-87                                                                                                                                                   OK__7951.jpg
-88                                                                                                                                               Burgos Cathedral
-89                                                                                                                                         FB_IMG_1732941261548~2
-90                                                                                                                                                               
-91                                                                                                                                                1921 Chev Truck
-92                                                                                                                                                               
-93                                                                                                                                            D-2024-11-30-1345_f
-94                                                                                                                                                        Lasagna
-95                                                                                                                                         DSC_2225-Edit-Edit.jpg
-96                                                                                                                                                         Zagreb
-97                                                                                                                                                               
-98                                                                                                                                     Île d’Oléron. Horizon bleu
-99                                                                                                              Species #74: Gordonia lasianthus leaf arrangement
-100                                                                                                                                               2024 TDayCruise
-    ispublic isfriend isfamily
-1          1        0        0
-2          1        0        0
-3          1        0        0
-4          1        0        0
-5          1        0        0
-6          1        0        0
-7          1        0        0
-8          1        0        0
-9          1        0        0
-10         1        0        0
-11         1        0        0
-12         1        0        0
-13         1        0        0
-14         1        0        0
-15         1        0        0
-16         1        0        0
-17         1        0        0
-18         1        0        0
-19         1        0        0
-20         1        0        0
-21         1        0        0
-22         1        0        0
-23         1        0        0
-24         1        0        0
-25         1        0        0
-26         1        0        0
-27         1        0        0
-28         1        0        0
-29         1        0        0
-30         1        0        0
-31         1        0        0
-32         1        0        0
-33         1        0        0
-34         1        0        0
-35         1        0        0
-36         1        0        0
-37         1        0        0
-38         1        0        0
-39         1        0        0
-40         1        0        0
-41         1        0        0
-42         1        0        0
-43         1        0        0
-44         1        0        0
-45         1        0        0
-46         1        0        0
-47         1        0        0
-48         1        0        0
-49         1        0        0
-50         1        0        0
-51         1        0        0
-52         1        0        0
-53         1        0        0
-54         1        0        0
-55         1        0        0
-56         1        0        0
-57         1        0        0
-58         1        0        0
-59         1        0        0
-60         1        0        0
-61         1        0        0
-62         1        0        0
-63         1        0        0
-64         1        0        0
-65         1        0        0
-66         1        0        0
-67         1        0        0
-68         1        0        0
-69         1        0        0
-70         1        0        0
-71         1        0        0
-72         1        0        0
-73         1        0        0
-74         1        0        0
-75         1        0        0
-76         1        0        0
-77         1        0        0
-78         1        0        0
-79         1        0        0
-80         1        0        0
-81         1        0        0
-82         1        0        0
-83         1        0        0
-84         1        0        0
-85         1        0        0
-86         1        0        0
-87         1        0        0
-88         1        0        0
-89         1        0        0
-90         1        0        0
-91         1        0        0
-92         1        0        0
-93         1        0        0
-94         1        0        0
-95         1        0        0
-96         1        0        0
-97         1        0        0
-98         1        0        0
-99         1        0        0
-100        1        0        0
-
-
-$stat
-[1] "ok"</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Osprey <span class="ot">&lt;-</span> <span class="fu">photo_search</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mindate_taken =</span> <span class="st">"2000-01-01"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxdate_taken =</span> <span class="st">"2024-11-28"</span>, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"Osprey"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tags =</span> <span class="fu">c</span>(<span class="st">"Osprey"</span>, <span class="st">"osprey"</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">124.6813</span>,<span class="fl">25.12993</span>,<span class="sc">-</span><span class="fl">67.00742</span>,<span class="fl">49.38323</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">has_geo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Osprey <span class="ot">&lt;-</span> <span class="fu">photo_search</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mindate_taken =</span> <span class="st">"2000-01-01"</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxdate_taken =</span> <span class="st">"2024-11-28"</span>, </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"Osprey"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tags =</span> <span class="fu">c</span>(<span class="st">"Osprey"</span>, <span class="st">"osprey"</span>),</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">124.6813</span>,<span class="fl">25.12993</span>,<span class="sc">-</span><span class="fl">67.00742</span>,<span class="fl">49.38323</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">has_geo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>Osprey <span class="sc">%&gt;%</span> </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">2</span>,<span class="at">align=</span><span class="st">"c"</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<p>#Exploring Dataset</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Osprey <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">2</span>,<span class="at">align=</span><span class="st">"c"</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="table-responsive">
-<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<table class="table table-striped table-hover table-condensed caption-top" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">license</th>
@@ -976,333 +650,11 @@ $stat
 <td style="text-align: center;">All Rights Reserved</td>
 <td style="text-align: center;">NA</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">89371535</td>
-<td style="text-align: center;">67778747@N00</td>
-<td style="text-align: center;">e18352e29d</td>
-<td style="text-align: center;">34</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">osprey-03</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">2006-01-21 19:58:49</td>
-<td style="text-align: center;">2008-03-04 21:48:29</td>
-<td style="text-align: center;">2000-01-01 01:45:13</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">279</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
-<td style="text-align: center;">33.95</td>
-<td style="text-align: center;">-83.32</td>
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">2492982</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_s.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_t.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_m.jpg</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_q.jpg</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d.jpg</td>
-<td style="text-align: center;">375</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_n.jpg</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">320</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_z.jpg</td>
-<td style="text-align: center;">480</td>
-<td style="text-align: center;">640</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_c.jpg</td>
-<td style="text-align: center;">600</td>
-<td style="text-align: center;">800</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_b.jpg</td>
-<td style="text-align: center;">768</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">All Rights Reserved</td>
-<td style="text-align: center;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">89371536</td>
-<td style="text-align: center;">67778747@N00</td>
-<td style="text-align: center;">4025adb757</td>
-<td style="text-align: center;">30</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">osprey-04</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">2006-01-21 19:58:49</td>
-<td style="text-align: center;">2008-03-04 21:48:29</td>
-<td style="text-align: center;">2000-01-01 01:45:22</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">299</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
-<td style="text-align: center;">33.95</td>
-<td style="text-align: center;">-83.32</td>
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">2492982</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_s.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_t.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_m.jpg</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_q.jpg</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757.jpg</td>
-<td style="text-align: center;">375</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_n.jpg</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">320</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_z.jpg</td>
-<td style="text-align: center;">480</td>
-<td style="text-align: center;">640</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_c.jpg</td>
-<td style="text-align: center;">600</td>
-<td style="text-align: center;">800</td>
-<td style="text-align: center;">https://live.staticflickr.com/30/89371536_4025adb757_b.jpg</td>
-<td style="text-align: center;">768</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">All Rights Reserved</td>
-<td style="text-align: center;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">89371537</td>
-<td style="text-align: center;">67778747@N00</td>
-<td style="text-align: center;">5d96024267</td>
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">osprey-05</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">2006-01-21 19:58:49</td>
-<td style="text-align: center;">2008-03-04 21:48:30</td>
-<td style="text-align: center;">2000-01-01 01:46:43</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">176</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
-<td style="text-align: center;">33.95</td>
-<td style="text-align: center;">-83.32</td>
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">2492982</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_s.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_t.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_m.jpg</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_q.jpg</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267.jpg</td>
-<td style="text-align: center;">375</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_n.jpg</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">320</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_z.jpg</td>
-<td style="text-align: center;">480</td>
-<td style="text-align: center;">640</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_c.jpg</td>
-<td style="text-align: center;">600</td>
-<td style="text-align: center;">800</td>
-<td style="text-align: center;">https://live.staticflickr.com/21/89371537_5d96024267_b.jpg</td>
-<td style="text-align: center;">768</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">All Rights Reserved</td>
-<td style="text-align: center;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">89371538</td>
-<td style="text-align: center;">67778747@N00</td>
-<td style="text-align: center;">5dd328fd41</td>
-<td style="text-align: center;">27</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">osprey-06</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">2006-01-21 19:58:49</td>
-<td style="text-align: center;">2008-03-04 21:48:30</td>
-<td style="text-align: center;">2000-01-01 01:46:55</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">169</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
-<td style="text-align: center;">33.95</td>
-<td style="text-align: center;">-83.32</td>
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">2492982</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_s.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_t.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_m.jpg</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_q.jpg</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41.jpg</td>
-<td style="text-align: center;">375</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_n.jpg</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">320</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_z.jpg</td>
-<td style="text-align: center;">480</td>
-<td style="text-align: center;">640</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_c.jpg</td>
-<td style="text-align: center;">600</td>
-<td style="text-align: center;">800</td>
-<td style="text-align: center;">https://live.staticflickr.com/27/89371538_5dd328fd41_b.jpg</td>
-<td style="text-align: center;">768</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">All Rights Reserved</td>
-<td style="text-align: center;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">89372853</td>
-<td style="text-align: center;">67778747@N00</td>
-<td style="text-align: center;">e2cbf04866</td>
-<td style="text-align: center;">43</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">osprey-07</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">2006-01-21 20:01:50</td>
-<td style="text-align: center;">2008-03-04 21:48:30</td>
-<td style="text-align: center;">2000-01-01 01:47:05</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">182</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
-<td style="text-align: center;">33.95</td>
-<td style="text-align: center;">-83.32</td>
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">2492982</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_s.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_t.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_m.jpg</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_q.jpg</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866.jpg</td>
-<td style="text-align: center;">375</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_n.jpg</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">320</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_z.jpg</td>
-<td style="text-align: center;">480</td>
-<td style="text-align: center;">640</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_c.jpg</td>
-<td style="text-align: center;">600</td>
-<td style="text-align: center;">800</td>
-<td style="text-align: center;">https://live.staticflickr.com/43/89372853_e2cbf04866_b.jpg</td>
-<td style="text-align: center;">768</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">All Rights Reserved</td>
-<td style="text-align: center;">NA</td>
-</tr>
 </tbody>
 </table>
 </div>
 
 
-</div>
-</div>
 <p>#Retrieving eBird Osprey Observations</p>
 <p>See <a href="https://science.ebird.org/en/use-ebird-data/download-ebird-data-products" class="uri">https://science.ebird.org/en/use-ebird-data/download-ebird-data-products</a> to download eBird EBD data</p>
 <ul>
@@ -1310,20 +662,20 @@ $stat
 <li>Import the eBird txt file</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#auk_set_ebd_path(path = "path/to/eBird/data")</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ebird <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"ebird_Osprey_Oct-2024.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> T, <span class="at">quote =</span> <span class="st">""</span>, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> F, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>,<span class="st">" "</span>,<span class="cn">NA</span>))</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ebird <span class="sc">%&gt;%</span> </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">2</span>,<span class="at">align=</span><span class="st">"c"</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> </span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#auk_set_ebd_path(path = "path/to/eBird/data")</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ebird <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"ebird_Osprey_Oct-2024.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> T, <span class="at">quote =</span> <span class="st">""</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> F, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>,<span class="st">" "</span>,<span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>#Explore Dataset</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ebird <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">2</span>,<span class="at">align=</span><span class="st">"c"</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="table-responsive">
-<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<table class="table table-striped table-hover table-condensed caption-top" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">COMMON.NAME</th>
@@ -1405,118 +757,37 @@ $stat
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">Winter</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">Osprey</td>
-<td style="text-align: center;">Pandion haliaetus</td>
-<td style="text-align: center;">Florida</td>
-<td style="text-align: center;">Palm Beach</td>
-<td style="text-align: center;">US 27 Tower S of South Bay</td>
-<td style="text-align: center;">26.47</td>
-<td style="text-align: center;">-80.64</td>
-<td style="text-align: center;">2000-01-15</td>
-<td style="text-align: center;">2000</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">Winter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Osprey</td>
-<td style="text-align: center;">Pandion haliaetus</td>
-<td style="text-align: center;">Florida</td>
-<td style="text-align: center;">Seminole</td>
-<td style="text-align: center;">Wekiva River: SR 46 to Katie's Landing</td>
-<td style="text-align: center;">28.82</td>
-<td style="text-align: center;">-81.42</td>
-<td style="text-align: center;">2000-01-18</td>
-<td style="text-align: center;">2000</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">Winter</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Osprey</td>
-<td style="text-align: center;">Pandion haliaetus</td>
-<td style="text-align: center;">Florida</td>
-<td style="text-align: center;">Seminole</td>
-<td style="text-align: center;">Wekiva River: Katie's Landing to Lower Wekiva River Preserve SP Boundary</td>
-<td style="text-align: center;">28.83</td>
-<td style="text-align: center;">-81.41</td>
-<td style="text-align: center;">2000-01-31</td>
-<td style="text-align: center;">2000</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">Winter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Osprey</td>
-<td style="text-align: center;">Pandion haliaetus</td>
-<td style="text-align: center;">Florida</td>
-<td style="text-align: center;">Seminole</td>
-<td style="text-align: center;">Wekiva River: Lower Wekiva River Preserve SP Boundary to Black Water Creek</td>
-<td style="text-align: center;">28.85</td>
-<td style="text-align: center;">-81.38</td>
-<td style="text-align: center;">2000-01-31</td>
-<td style="text-align: center;">2000</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">Winter</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Osprey</td>
-<td style="text-align: center;">Pandion haliaetus</td>
-<td style="text-align: center;">Florida</td>
-<td style="text-align: center;">Seminole</td>
-<td style="text-align: center;">Wekiva River: Black Water Creek to St Johns River</td>
-<td style="text-align: center;">28.87</td>
-<td style="text-align: center;">-81.37</td>
-<td style="text-align: center;">2000-01-31</td>
-<td style="text-align: center;">2000</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">Winter</td>
-</tr>
 </tbody>
 </table>
 </div>
 
 
-</div>
-</div>
 <p>#Format Data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract month and year from the "datataken" column of Flickr data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">format</span>(Osprey<span class="sc">$</span>datetaken, <span class="st">"%Y"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">format</span>(Osprey<span class="sc">$</span>datetaken, <span class="st">"%m"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Assign observations into seasons for Flickr</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Osprey<span class="sc">$</span>month)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>season <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Osprey<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">"Winter"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">ifelse</span>(Osprey<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="st">"Spring"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">ifelse</span>(Osprey<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="st">"Summer"</span>, <span class="st">"Fall"</span>)))</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract Month and Year for eBird data</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>ebird<span class="sc">$</span>OBSERVATION.DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(ebird<span class="sc">$</span>OBSERVATION.DATE)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>ebird<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">format</span>(ebird<span class="sc">$</span>OBSERVATION.DATE, <span class="st">"%Y"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>ebird<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">format</span>(ebird<span class="sc">$</span>OBSERVATION.DATE, <span class="st">"%m"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Assign observations into seasons for eBird</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ebird<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ebird<span class="sc">$</span>month)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>ebird<span class="sc">$</span>season <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ebird<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">"Winter"</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">ifelse</span>(ebird<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="st">"Spring"</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ifelse</span>(ebird<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="st">"Summer"</span>, <span class="st">"Fall"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="display-distribution-of-ospreys-using-flickr-photos" class="level2">
 <h2 class="anchored" data-anchor-id="display-distribution-of-ospreys-using-flickr-photos">Display Distribution of Ospreys using Flickr Photos</h2>
 <p>Create map to show the distributions of Osprey within the US using Flickr geotagged photos</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>#Assign States to Flickr Photos</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import Shapefile of the US</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"gadm41_USA_1.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Reading layer `gadm41_USA_1' from data source 
-  `/home/runner/work/final-project-Festuus/final-project-Festuus/gadm41_USA_1.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 51 features and 11 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -179.1506 ymin: 18.90986 xmax: 179.7734 ymax: 72.6875
-Geodetic CRS:  WGS 84</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a spatial points dataframe from the 'flickr photos' dataframe</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>robin_ss <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(Osprey, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>), <span class="at">crs =</span> <span class="fu">st_crs</span>(us_states))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform a spatial join to determine the state for each point</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Osprey_states <span class="ot">&lt;-</span> <span class="fu">st_join</span>(robin_ss, us_states)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Assign state to Flickr observation from the new dataframe</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>state <span class="ot">&lt;-</span> Osprey_states<span class="sc">$</span>NAME_1</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#remove all rows where state is NAs </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>Osprey <span class="ot">&lt;-</span> Osprey[<span class="sc">!</span><span class="fu">is.na</span>(Osprey<span class="sc">$</span>state), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>#Visualizing Seasonal Geodistribution of Ospreys’ Occurrences</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1526,134 +797,25 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </div>
-<p>#Comparing Seasonal Geodistribution of Ospreys from Flickr to eBird</p>
+<p>#Assign States to Flickr Photos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the frequency of seasons </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>winter_frequency <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"Winter"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, <span class="at">name =</span> <span class="st">"frequency"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(frequency))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>winter_ebird <span class="ot">&lt;-</span> ebird <span class="sc">%&gt;%</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"Winter"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(STATE, <span class="at">name =</span> <span class="st">"frequency"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(frequency))</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>winter_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(winter_ebird<span class="sc">$</span>frequency)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>flickr_win_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(winter_frequency<span class="sc">$</span>frequency)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>winter_ebird <span class="ot">&lt;-</span> <span class="fu">transform</span>(winter_ebird, <span class="at">percent =</span> frequency <span class="sc">/</span> winter_sum <span class="sc">*</span> <span class="dv">100</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>winter_frequency <span class="ot">&lt;-</span> <span class="fu">transform</span>(winter_frequency, <span class="at">percent =</span> frequency <span class="sc">/</span> flickr_win_sum <span class="sc">*</span> <span class="dv">100</span>)</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>winter_ebird <span class="ot">&lt;-</span> <span class="fu">head</span>(winter_ebird, <span class="at">n =</span> <span class="dv">6</span>)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>winter_frequency <span class="ot">&lt;-</span> <span class="fu">head</span>(winter_frequency, <span class="at">n =</span> <span class="dv">6</span>)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>winter_ebird<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"eBird"</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>winter_frequency<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"Flickr"</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>winter_ebird <span class="ot">&lt;-</span> winter_ebird <span class="sc">%&gt;%</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state =</span> STATE) </span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>winter_occ <span class="ot">&lt;-</span> <span class="fu">rbind</span>(winter_ebird, winter_frequency)</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>winter_occ <span class="ot">&lt;-</span> winter_occ <span class="sc">%&gt;%</span></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_reorder</span>(state, <span class="sc">-</span>percent))</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(winter_occ, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(state, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(state))), <span class="at">y =</span> frequency, <span class="at">fill =</span> source)) <span class="sc">+</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="co"># Add border for bars</span></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>(percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), </span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.99</span>, <span class="at">size =</span> <span class="fl">3.1</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Osprey Winter Occurrences by State"</span>,</span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"State"</span>,</span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Percentage of Total Occurrence"</span></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>( <span class="st">"eBird"</span> <span class="ot">=</span> <span class="st">"#ff7f00"</span>, <span class="st">"Flickr"</span> <span class="ot">=</span> <span class="st">"#1f78b4"</span> ), </span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"eBird"</span>, <span class="st">"Flickr"</span>), </span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Source"</span></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), </span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray80"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>), </span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>() </span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> source, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import Shapefile of the US</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"gadm41_USA_1.shp"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a spatial points dataframe from the 'flickr photos' dataframe</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>robin_ss <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(Osprey, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"longitude"</span>, <span class="st">"latitude"</span>), <span class="at">crs =</span> <span class="fu">st_crs</span>(us_states))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform a spatial join to determine the state for each point</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Osprey_states <span class="ot">&lt;-</span> <span class="fu">st_join</span>(robin_ss, us_states)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Assign state to Flickr observation from the new dataframe</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>state <span class="ot">&lt;-</span> Osprey_states<span class="sc">$</span>NAME_1</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#remove all rows where state is NAs </span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>Osprey <span class="ot">&lt;-</span> Osprey[<span class="sc">!</span><span class="fu">is.na</span>(Osprey<span class="sc">$</span>state), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<p>#Overall Seasonal Trend of Observations</p>
+<p>#Visualizing Seasonal Geodistribution of Ospreys’ Occurrences</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot of seasons</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>seasons <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">factor</span>(season, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Spring"</span>, <span class="st">"Summer"</span>, <span class="st">"Fall"</span>, <span class="st">"Winter"</span>)))</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>season_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(seasons<span class="sc">$</span>Count)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>seasons <span class="ot">&lt;-</span> <span class="fu">transform</span>(seasons, <span class="at">percent =</span> Count <span class="sc">/</span> season_sum <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">factor</span>(season, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Spring"</span>, <span class="st">"Summer"</span>, <span class="st">"Fall"</span>, <span class="st">"Winter"</span>)))</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#For ebird data</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>seasons_ebird <span class="ot">&lt;-</span> ebird <span class="sc">%&gt;%</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">factor</span>(season, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Spring"</span>, <span class="st">"Summer"</span>, <span class="st">"Fall"</span>, <span class="st">"Winter"</span>)))</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>ebird_season_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(seasons_ebird<span class="sc">$</span>Count)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>seasons_ebird <span class="ot">&lt;-</span> <span class="fu">transform</span>(seasons_ebird, <span class="at">percent =</span> Count <span class="sc">/</span> ebird_season_sum <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">factor</span>(season, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Spring"</span>, <span class="st">"Summer"</span>, <span class="st">"Fall"</span>, <span class="st">"Winter"</span>)))</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>seasons_ebird<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"eBird"</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>seasons<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"Flickr"</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>seasonal_trend <span class="ot">&lt;-</span> <span class="fu">rbind</span>(seasons_ebird, seasons)</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(seasonal_trend, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(season, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Spring"</span>, <span class="st">"Summer"</span>, <span class="st">"Fall"</span>, <span class="st">"Winter"</span>)), <span class="at">y =</span> percent, <span class="at">fill =</span> source)) <span class="sc">+</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>(percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), </span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Title and axis labels</span></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Osprey Seasonal Frequency across Data Sources"</span>,</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Season"</span>,</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Percentage of Total Events"</span>,</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Data Source"</span></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Flickr"</span> <span class="ot">=</span> <span class="st">"#1f78b4"</span>, <span class="st">"eBird"</span> <span class="ot">=</span> <span class="st">"#ff7f00"</span>)) <span class="sc">+</span></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>)),</span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">10</span>)),</span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="dv">1</span>),</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray80"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>),</span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1662,72 +824,32 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </div>
-<p>#Overall GeoDistribution of Ospreys in the US comparing both datasets</p>
+<p>#Comparing Seasonal Geodistribution of Ospreys from Flickr to eBird</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#State freq</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>State_frequency <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, <span class="at">name =</span> <span class="st">"frequency"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(frequency))</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#State freq</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>State_ebird <span class="ot">&lt;-</span> ebird <span class="sc">%&gt;%</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(STATE, <span class="at">name =</span> <span class="st">"frequency"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(frequency))</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>State_ebird <span class="ot">&lt;-</span> <span class="fu">head</span>(State_ebird, <span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>State_frequency <span class="ot">&lt;-</span> <span class="fu">head</span>(State_frequency, <span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>ebird_state_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(State_ebird<span class="sc">$</span>frequency)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>flickr_season_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(State_frequency<span class="sc">$</span>frequency)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>State_ebird <span class="ot">&lt;-</span> <span class="fu">transform</span>(State_ebird, <span class="at">percent =</span> frequency<span class="sc">/</span> ebird_state_sum <span class="sc">*</span> <span class="dv">100</span>) </span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>State_frequency <span class="ot">&lt;-</span> <span class="fu">transform</span>(State_frequency, <span class="at">percent =</span> frequency<span class="sc">/</span> flickr_season_sum <span class="sc">*</span> <span class="dv">100</span>) </span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>State_ebird<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"eBird"</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>State_frequency<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"Flickr"</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>State_ebird <span class="ot">&lt;-</span> State_ebird <span class="sc">%&gt;%</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state =</span> STATE) </span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>state_trend <span class="ot">&lt;-</span> <span class="fu">rbind</span>(State_ebird, State_frequency)</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>state_trend <span class="ot">&lt;-</span> state_trend <span class="sc">%&gt;%</span></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_reorder</span>(state, <span class="sc">-</span>percent))</span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(state_trend, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(state, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(state))), <span class="at">y =</span> frequency, <span class="at">fill =</span> source)) <span class="sc">+</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>(percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), </span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">2.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Osprey State Occurrences across Data Source"</span>,</span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"State"</span>,</span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Percentage of Total Occurrence"</span></span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>( <span class="st">"eBird"</span> <span class="ot">=</span> <span class="st">"#ff7f00"</span>, <span class="st">"Flickr"</span> <span class="ot">=</span> <span class="st">"#1f78b4"</span> ), </span>
-<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"eBird"</span>, <span class="st">"Flickr"</span>), </span>
-<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Source"</span></span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>), </span>
-<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"gray80"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>), </span>
-<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>() </span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> source, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>#Overall Seasonal Trend of Observations</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>#Overall GeoDistribution of Ospreys in the US comparing both datasets</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
