@@ -1,9 +1,12 @@
 ---
-title: "Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos and eBird Data"
+title: "Crowdsourcing Osprey Occurrences and Migration Trends in the US Using Flickr Photos"
 author: Festus Adegbola
 subtitle: GEO511
 date: today
 date-format: long
+output:
+  html_document:
+    code-fold: true
 ---
 
 # Introduction
@@ -90,9 +93,6 @@ renv::snapshot()
 -     Set up minimum and maximum date (2000-2024, in this case)
 
 ```{r}
-FlickrAPIRequest(method = "flickr.photos.getRecent", api_key = "45cb9a347398093381ab361618175b82",
-                 format = "json", simplifyVector = T, check_type = F)
- 
 Osprey <- photo_search(
   mindate_taken = "2000-01-01",
   maxdate_taken = "2024-11-28", 
@@ -100,10 +100,13 @@ Osprey <- photo_search(
   tags = c("Osprey", "osprey"),
   bbox = c(-124.6813,25.12993,-67.00742,49.38323),
   has_geo = TRUE)
+```
 
+#Exploring Dataset
 
+```{r, results='asis'}
 Osprey %>% 
-  slice(1:10) %>% 
+  slice(1:5) %>% 
   kable(digits=2,align="c")%>% 
   kable_styling(bootstrap_options = 
                   c("striped", "hover", "condensed", "responsive"))
@@ -122,20 +125,22 @@ See <https://science.ebird.org/en/use-ebird-data/download-ebird-data-products> t
 ebird <- read.delim("ebird_Osprey_Oct-2024.txt", sep = "\t", 
                     header = T, quote = "", 
                     stringsAsFactors = F, na.strings = c(""," ",NA))
+```
 
+#Explore Dataset
+
+```{r, results='asis'}
 ebird %>% 
-  slice(1:10) %>% 
+  slice(1:5) %>% 
   kable(digits=2,align="c")%>% 
   kable_styling(bootstrap_options = 
                   c("striped", "hover", "condensed", "responsive"))
-
-
 ```
 
 
 #Format Data
 
-```{r, echo = FALSE}
+```{r}
 #Extract month and year from the "datataken" column of Flickr data
 Osprey$year <- format(Osprey$datetaken, "%Y")
 Osprey$month <- format(Osprey$datetaken, "%m")
@@ -185,12 +190,11 @@ ggplot() +
     legend.position = "right"
   )
 
-
-
 ```
+
 #Assign States to Flickr Photos
 
-```{r, message = FALSE, warning=FALSE}
+```{r, message = FALSE, warning=FALSE, results='hide'}
 #Import Shapefile of the US
 us_states <- st_read("gadm41_USA_1.shp")
 
@@ -274,7 +278,7 @@ ggplot(seasonal_occ, aes(x = factor(state, levels = rev(unique(state))), y = fre
 ```
 
 #Comparing Seasonal Geodistribution of Ospreys from Flickr to eBird
-```{r}
+```{r, echo = FALSE}
 #Check the frequency of seasons 
 winter_frequency <- Osprey %>%
   filter(season == "Winter") %>%
@@ -343,7 +347,7 @@ ggplot(winter_occ, aes(x = factor(state, levels = rev(unique(state))), y = frequ
 ```
 
 #Overall Seasonal Trend of Observations
-```{r}
+```{r, echo = FALSE}
 #Plot of seasons
 seasons <- Osprey %>%
   group_by(season) %>%
@@ -402,7 +406,7 @@ ggplot(seasonal_trend, aes(x = factor(season, levels = c("Spring", "Summer", "Fa
 ```
 
 #Overall GeoDistribution of Ospreys in the US comparing both datasets
-```{r}
+```{r, echo = FALSE}
 #State freq
 State_frequency <- Osprey %>%
   count(state, name = "frequency") %>%
