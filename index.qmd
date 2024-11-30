@@ -140,7 +140,7 @@ ebird %>%
 
 #Format Data
 
-```{r}
+```{r, collapse=TRUE}
 #Extract month and year from the "datataken" column of Flickr data
 Osprey$year <- format(Osprey$datetaken, "%Y")
 Osprey$month <- format(Osprey$datetaken, "%m")
@@ -214,7 +214,7 @@ Osprey <- Osprey[!is.na(Osprey$state), ]
 
 
 #Visualizing Seasonal Geodistribution of Ospreys' Occurrences 
-```{r, echo = FALSE}
+```{r, collapse=TRUE}
 #Check the frequency of seasons 
 summer_frequency <- Osprey %>%
   filter(season == "Summer") %>%
@@ -278,7 +278,7 @@ ggplot(seasonal_occ, aes(x = factor(state, levels = rev(unique(state))), y = fre
 ```
 
 #Comparing Seasonal Geodistribution of Ospreys from Flickr to eBird
-```{r, echo = FALSE}
+```{r, collapse=TRUE}
 #Check the frequency of seasons 
 winter_frequency <- Osprey %>%
   filter(season == "Winter") %>%
@@ -347,7 +347,7 @@ ggplot(winter_occ, aes(x = factor(state, levels = rev(unique(state))), y = frequ
 ```
 
 #Overall Seasonal Trend of Observations
-```{r, echo = FALSE}
+```{r, collapse=TRUE}
 #Plot of seasons
 seasons <- Osprey %>%
   group_by(season) %>%
@@ -406,7 +406,7 @@ ggplot(seasonal_trend, aes(x = factor(season, levels = c("Spring", "Summer", "Fa
 ```
 
 #Overall GeoDistribution of Ospreys in the US comparing both datasets
-```{r, echo = FALSE}
+```{r, collapse=TRUE}
 #State freq
 State_frequency <- Osprey %>%
   count(state, name = "frequency") %>%
