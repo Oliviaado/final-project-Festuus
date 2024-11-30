@@ -5,136 +5,463 @@ subtitle: GEO511
 date: today
 date-format: long
 ---
-install.packages("rmarkdown")
-library(rmarkdown)
-library(knitr)
 
 # Introduction
 
-The Osprey (Pandion haliaetus) is a migratory bird species with a broad distribution across North America. This project will explore seasonal trends in Osprey occurrences across the United States by comparing the geographic distribution and timing of sightings in Flickr photos with data from eBird. The primary goal is to assess whether trends in the presence and migration patterns of Ospreys, as seen in Flickr images, match the migration data reported in eBird. By doing so, the project seeks to provide insight into the correlation between photo-based citizen science data and formal bird observation databases, as well as to highlight how social media platforms like Flickr can contribute to ecological studies.
+The Osprey (Pandion haliaetus) is a partial migratory bird species with a broad distribution across North America. Partial migration means that not all populations migrate, and the extent of migration depends on geographical location and environmental conditions. Ospreys breeding in northern latitudes (e.g., Canada and the northern United States) are typically obligate migrants, traveling to Central and South America for the winter. Those in southern parts of the United States may be year-round residents, depending on food availability and climate.
 
-Obligate Migrants 
+Monitoring bird populations and migration patterns is vital for understanding ecological dynamics and informing conservation efforts. However, traditional monitoring approaches, such as field observations and curated datasets like eBird, are often resource-intensive and may leave gaps in spatial and temporal coverage. As such, there is a growing need to explore complementary data sources that can fill these gaps.
+
+This project investigates the potential of social media as an alternative data source for ecological monitoring by focusing on the seasonal occurrences and geographical distribution of Ospreys across the United States. Using geotagged Flickr photos and comparing them to formal bird observation data from eBird, the study aims to assess the extent to which trends in the presence and migration patterns of Ospreys captured through social media align with patterns documented in citizen science databases. By highlighting the utility of photo-based social media data, this project seeks to advance our understanding of how platforms like Flickr can contribute to ecological and avian studies, offering a scalable and accessible tool for biodiversity monitoring.
+
+![Osprey Image](https://pixabay.com/get/g5cd05cdf5191f1b5b29840a4b279b64ab7c9bfdfbabcfa5e3618f18e31eea7e74994e50abfa8a0727930313592fb8f3f85efaa72215dd46fd6661b1f796a7b21_1280.jpg)
+
 
 # Materials and methods
-Flickr Photos: Flickr’s public API will be used to gather geotagged images of Ospreys from across the U.S. by querying hashtags such as "#Osprey" and related keywords.
-Timeframe: Images will be filtered by date to analyze seasonal trends.
-API Documentation: Flickr API
+#Datasets
 
+The first step in the project is to download geotagged images of Ospreys from Flickr's public API. This involve querying the "Osprey" tag to identify relevant photos. The query is also restricted to a specific timeframe to facilitate the analysis of seasonal patterns. Metadata associated with the photos, including geographic coordinates, date, and time of posting, were collected. 
 
-eBird Data:eBird’s occurrence and observation data will be accessed through their data portal, focusing on Osprey sightings across the U.S. The data will include location, date, and number of birds observed.
+eBird data will be downloaded from the eBird data products website and processed in R. The occurrence and observation data will be accessed through eBird's data portal, specifically focusing on Osprey sightings across the U.S. The dataset will include key variables such as location, and, date (aligned to match the timeframe of Flickr photo requests). This standardized dataset will enable direct comparisons with the Flickr data for temporal and spatial analysis.
 
+#Installing and loading libraries
 
-Narrative: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.
+Let's start by installing and loading required R libraries:
 
-Code: The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.
-
-Data: The underlying data are publicly accessible via the web and downloaded/accessed within the Rmd script. If you want to use your own data, you must make it available on a website (e.g. Figshare) so that others are able to re-run your code.
-
-You can do bullets like this:
-
--   The first most important thing
--   The second most important thing
--   The third most important thing
-
-You can do numbers like this:
-
-1.  The first most important thing
-2.  The second most important thing
-3.  The third most important thing
-
-See <http://rmarkdown.rstudio.com/> for all the amazing things you can do.
-
-Here's my first code chunk.
-
-Let's start by loading required Libraries
-```{r, message = FALSE, warning=FALSE}
+```{r, message = FALSE, warning=FALSE, echo = FALSE}
 install.packages("FlickrAPI")
-library(FlickrAPI)
 install.packages("httr")
 install.packages("jsonlite")
-library(httr)
-library(jsonlite)
 install.packages("devtools")
-library(devtools)
-library(photosearcher)
-library(sf)
 install.packages("usmapdata")
-library(usmapdata)
 install.packages("maps")
-library(maps)
-library(ggplot2)
-library(dplyr)
-library(lubridate)
 install.packages("USA.state.boundaries")
-library(USA.state.boundaries)
-library(raster)
-library(forcats)
 remotes::install_github("CornellLabofOrnithology/auk")
-library(auk)
 install.packages("tidyverse")
 install.packages("kableExtra")
 install.packages("htmlwidgets")
 install.packages("widgetframe")
+devtools::install_github("nfox29/photosearcher")
+install.packages("rmarkdown")
+
+library(FlickrAPI)
+library(httr)
+library(jsonlite)
+library(devtools)
+library(sf)
+library(usmapdata)
+library(maps)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(USA.state.boundaries)
+library(forcats)
+library(auk)
 library(tidyverse)
 library(kableExtra)
 library(htmlwidgets)
 library(widgetframe)
+library(photosearcher)
+library(rmarkdown)
+library(knitr)
 knitr::opts_chunk$set(widgetframe_widgets_dir = 'widgets' ) 
 knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
 ```
 
 
+#Retrieving Flickr Photos 
 
-
-
-## Download and clean all required data
+-     Set up your Flickr credentials (i.e Flickr key and secret)
+-     Create a Flickr account to set up API key and secret
+-     Request Flickr photo using the Flickr API through photosearcher library
+-     Set up a bounding box to only extract data within the US
+-     Set up minimum and maximum date (2000-2024, in this case)
 
 ```{r}
-n=20
-data=data.frame(x=runif(n,-180,180),
-                y=runif(n,-60,60),
-                size = runif(n, 5, 20),
-                category = factor(
-                  sample(letters[1:5], n, replace = TRUE)
-                  ),
-                value = rnorm(n))
-```
+FlickrAPIRequest(method = "flickr.photos.getRecent", api_key = "45cb9a347398093381ab361618175b82",
+                 format = "json", simplifyVector = T, check_type = F)
+ 
+Osprey <- photo_search(
+  mindate_taken = "2000-01-01",
+  maxdate_taken = "2024-11-28", 
+  text = "Osprey",
+  tags = c("Osprey", "osprey"),
+  bbox = c(-124.6813,25.12993,-67.00742,49.38323),
+  has_geo = TRUE)
 
-```{r, results='asis'}
-data %>% 
-  slice(1:10) %>% #show only 1:n rows
-  kable(digits=2,align="c")%>% #make table and round to two digits
+
+Osprey %>% 
+  slice(1:10) %>% 
+  kable(digits=2,align="c")%>% 
   kable_styling(bootstrap_options = 
-                  c("striped", "hover", "condensed", "responsive")) #apply other formatting
+                  c("striped", "hover", "condensed", "responsive"))
 ```
 
-Add any additional processing steps here.
+#Retrieving eBird Osprey Observations
 
-# Results
+See <https://science.ebird.org/en/use-ebird-data/download-ebird-data-products> to download eBird EBD data
 
-\[\~200 words\]
+-   Set path for the downloaded eBird data 
+-   Import the eBird txt file
 
-Tables and figures (maps and other graphics) are carefully planned to convey the results of your analysis. Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final presentation of the data.
+```{r, message = FALSE, warning=FALSE}
+#auk_set_ebd_path(path = "path/to/eBird/data")
 
-Show tables, plots, etc. and describe them.
+ebird <- read.delim("osprey_Oct-2024.txt", sep = "\t", 
+                    header = T, quote = "", 
+                    stringsAsFactors = F, na.strings = c(""," ",NA))
+
+ebird %>% 
+  slice(1:10) %>% 
+  kable(digits=2,align="c")%>% 
+  kable_styling(bootstrap_options = 
+                  c("striped", "hover", "condensed", "responsive"))
 
 
+```
+
+
+#Format Data
+
+```{r, echo = FALSE}
+#Extract month and year from the "datataken" column of Flickr data
+Osprey$year <- format(Osprey$datetaken, "%Y")
+Osprey$month <- format(Osprey$datetaken, "%m")
+
+#Assign observations into seasons for Flickr
+Osprey$month <- as.numeric(Osprey$month)
+Osprey$season <- ifelse(Osprey$month %in% c(12,1, 2), "Winter",
+                     ifelse(Osprey$month %in% c(3, 4, 5), "Spring",
+                            ifelse(Osprey$month %in% c(6, 7, 8), "Summer", "Fall")))
+
+#Extract Month and Year for eBird data
+ebird$OBSERVATION.DATE <- as.Date(ebird$OBSERVATION.DATE)
+ebird$year <- format(ebird$OBSERVATION.DATE, "%Y")
+ebird$month <- format(ebird$OBSERVATION.DATE, "%m")
+
+#Assign observations into seasons for eBird
+ebird$month <- as.numeric(ebird$month)
+ebird$season <- ifelse(ebird$month %in% c(12,1, 2), "Winter",
+                       ifelse(ebird$month %in% c(3, 4, 5), "Spring",
+                              ifelse(ebird$month %in% c(6, 7, 8), "Summer", "Fall")))
+
+```
+
+## Display Distribution of Ospreys using Flickr Photos
+
+Create map to show the distributions of Osprey within the US using Flickr geotagged photos
+```{r, message = FALSE, warning=FALSE, echo = FALSE}
+
+us_map <- map_data("state") 
+
+ggplot() +
+  geom_polygon(data = us_map, aes(x = long, y = lat, group = group),
+               fill = "gray90", color = "white") +
+  geom_point(data = Osprey, aes(x = longitude, y = latitude), 
+             color = "black", fill = "gray50", shape = 21, size = 3, alpha = 0.7) +
+  coord_quickmap(xlim = c(-125, -66), ylim = c(24, 50)) +
+  labs(
+    title = "Flickr Osprey Observations in the United States using Flickr Photos",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    legend.position = "right"
+  )
+
+
+
+```
+#Assign States to Flickr Photos
+
+```{r, message = FALSE, warning=FALSE}
+#Import Shapefile of the US
+us_states <- st_read("gadm41_USA_1.shp")
+
+# Create a spatial points dataframe from the 'flickr photos' dataframe
+robin_ss <- st_as_sf(Osprey, coords = c("longitude", "latitude"), crs = st_crs(us_states))
+
+# Perform a spatial join to determine the state for each point
+Osprey_states <- st_join(robin_ss, us_states)
+
+#Assign state to Flickr observation from the new dataframe
+Osprey$state <- Osprey_states$NAME_1
+
+#remove all rows where state is NAs 
+Osprey <- Osprey[!is.na(Osprey$state), ]
+
+```
+
+
+#Visualizing Seasonal Geodistribution of Ospreys' Occurrences 
+```{r, echo = FALSE}
+#Check the frequency of seasons 
+summer_frequency <- Osprey %>%
+  filter(season == "Summer") %>%
+  count(state, name = "frequency") %>%
+arrange(desc(frequency))
+
+winter_frequency <- Osprey %>%
+  filter(season == "Winter") %>%
+  count(state, name = "frequency") %>%
+  arrange(desc(frequency))
+
+#show them as percentage 
+summer_sum <- sum(summer_frequency$frequency)
+winter_sum <- sum(winter_frequency$frequency)
+
+summer_frequency <- transform(summer_frequency, percent = frequency / summer_sum * 100)
+winter_frequency <- transform(winter_frequency, percent = frequency / winter_sum * 100)
+
+summer_frequency <- head(summer_frequency, n = 5)
+winter_frequency <- head(winter_frequency, n = 5)
+
+summer_frequency$season <- "Summer"
+winter_frequency$season <- "Winter"
+
+seasonal_occ <- rbind(summer_frequency, winter_frequency)
+
+seasonal_occ <- seasonal_occ %>%
+  mutate(state = fct_reorder(state, -frequency))
+
+ggplot(seasonal_occ, aes(x = factor(state, levels = rev(unique(state))), y = frequency, fill = season)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6, color = "black") + 
+  geom_text(aes(label = paste(round(percent, 1), "%")), 
+            position = position_dodge(width = 0.8), 
+            vjust = -2.5, size = 3.5, color = "black", fontface = "bold") +
+  labs(
+    title = "Osprey Seasonal Occurrences by State",
+    x = "State",
+    y = "Percentage of Total Occurrence"
+  ) +
+  scale_fill_manual(
+    values = c("Winter" = "#1f78b4", "Summer" = "#ff7f00"), 
+    labels = c("Summer", "Winter"), 
+    name = "Season"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12, face = "bold", angle = 45, hjust = 1), 
+    axis.text.y = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 11),
+    panel.grid.major.y = element_line(color = "gray80", linetype = "dashed"), 
+    panel.grid.major.x = element_blank() 
+  ) +
+  facet_wrap(~ season, scales = "free", ncol = 1) +
+  coord_flip() 
+
+```
+
+#Comparing Seasonal Geodistribution of Ospreys from Flickr to eBird
 ```{r}
-data %>% 
-  ggplot(aes(x=x,y=y,col=category))+
-  geom_point()
+#Check the frequency of seasons 
+winter_frequency <- Osprey %>%
+  filter(season == "Winter") %>%
+  count(state, name = "frequency") %>%
+  arrange(desc(frequency))
+
+winter_ebird <- ebird %>%
+  filter(season == "Winter") %>%
+  count(STATE, name = "frequency") %>%
+  arrange(desc(frequency))
+
+winter_sum <- sum(winter_ebird$frequency)
+flickr_win_sum <- sum(winter_frequency$frequency)
+
+winter_ebird <- transform(winter_ebird, percent = frequency / winter_sum * 100)
+winter_frequency <- transform(winter_frequency, percent = frequency / flickr_win_sum * 100)
+
+winter_ebird <- head(winter_ebird, n = 6)
+winter_frequency <- head(winter_frequency, n = 6)
+
+
+winter_ebird$source <- "eBird"
+winter_frequency$source <- "Flickr"
+
+winter_ebird <- winter_ebird %>%
+  rename(state = STATE) 
+
+winter_occ <- rbind(winter_ebird, winter_frequency)
+
+winter_occ <- winter_occ %>%
+  mutate(state = fct_reorder(state, -percent))
+
+ggplot(winter_occ, aes(x = factor(state, levels = rev(unique(state))), y = frequency, fill = source)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6, color = "black") + # Add border for bars
+  geom_text(aes(label = paste(round(percent, 1), "%")), 
+            position = position_dodge(width = 0.8), 
+            vjust = -0.5, hjust = -0.99, size = 3.1, color = "black", fontface = "bold") +
+  labs(
+    title = "Osprey Winter Occurrences by State",
+    x = "State",
+    y = "Percentage of Total Occurrence"
+  ) +
+  scale_fill_manual(
+    values = c( "eBird" = "#ff7f00", "Flickr" = "#1f78b4" ), 
+    labels = c("eBird", "Flickr"), 
+    name = "Source"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12, face = "bold", angle = 45, hjust = 1), 
+    axis.text.y = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 11),
+    panel.grid.major.y = element_line(color = "gray80", linetype = "dashed"), 
+    panel.grid.major.x = element_blank() 
+  ) +
+  facet_wrap(~ source, scales = "free", ncol = 1) +
+  coord_flip() 
+
+
+
 ```
 
-### Dygraphs Example
+#Overall Seasonal Trend of Observations
+```{r}
+#Plot of seasons
+seasons <- Osprey %>%
+  group_by(season) %>%
+  summarise(Count = n()) %>%
+  arrange(factor(season, levels = c("Spring", "Summer", "Fall", "Winter")))
 
+season_sum <- sum(seasons$Count)
 
+seasons <- transform(seasons, percent = Count / season_sum * 100) %>%
+  arrange(factor(season, levels = c("Spring", "Summer", "Fall", "Winter")))
+
+#For ebird data
+seasons_ebird <- ebird %>%
+  group_by(season) %>%
+  summarise(Count = n()) %>%
+  arrange(factor(season, levels = c("Spring", "Summer", "Fall", "Winter")))
+
+ebird_season_sum <- sum(seasons_ebird$Count)
+
+seasons_ebird <- transform(seasons_ebird, percent = Count / ebird_season_sum * 100) %>%
+  arrange(factor(season, levels = c("Spring", "Summer", "Fall", "Winter")))
+
+seasons_ebird$source <- "eBird"
+seasons$source <- "Flickr"
+
+seasonal_trend <- rbind(seasons_ebird, seasons)
+
+ggplot(seasonal_trend, aes(x = factor(season, levels = c("Spring", "Summer", "Fall", "Winter")), y = percent, fill = source)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +
+  geom_text(aes(label = paste(round(percent, 1), "%")), 
+            position = position_dodge(width = 0.8), 
+            vjust = -0.3, size = 4, color = "black", fontface = "bold") +
+  
+  # Title and axis labels
+  labs(
+    title = "Osprey Seasonal Frequency across Data Sources",
+    x = "Season",
+    y = "Percentage of Total Events",
+    fill = "Data Source"
+  ) +
+  scale_fill_manual(values = c("Flickr" = "#1f78b4", "eBird" = "#ff7f00")) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold", margin = margin(t = 10)),
+    axis.title.y = element_text(size = 14, face = "bold", margin = margin(r = 10)),
+    axis.text.x = element_text(size = 12, angle = 45, hjust = 1, vjust = 1),
+    axis.text.y = element_text(size = 12),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 12),
+    panel.grid.major.y = element_line(color = "gray80", linetype = "dashed"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  )
+
+```
+
+#Overall GeoDistribution of Ospreys in the US comparing both datasets
+```{r}
+#State freq
+State_frequency <- Osprey %>%
+  count(state, name = "frequency") %>%
+  arrange(desc(frequency))
+
+#State freq
+State_ebird <- ebird %>%
+  count(STATE, name = "frequency") %>%
+  arrange(desc(frequency))
+
+State_ebird <- head(State_ebird, n = 10)
+State_frequency <- head(State_frequency, n = 10)
+
+ebird_state_sum <- sum(State_ebird$frequency)
+flickr_season_sum <- sum(State_frequency$frequency)
+
+State_ebird <- transform(State_ebird, percent = frequency/ ebird_state_sum * 100) 
+State_frequency <- transform(State_frequency, percent = frequency/ flickr_season_sum * 100) 
+
+State_ebird$source <- "eBird"
+State_frequency$source <- "Flickr"
+
+State_ebird <- State_ebird %>%
+  rename(state = STATE) 
+
+state_trend <- rbind(State_ebird, State_frequency)
+
+state_trend <- state_trend %>%
+  mutate(state = fct_reorder(state, -percent))
+
+ggplot(state_trend, aes(x = factor(state, levels = rev(unique(state))), y = frequency, fill = source)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.6, color = "black") + 
+  geom_text(aes(label = paste(round(percent, 1), "%")), 
+            position = position_dodge(width = 0.8), 
+            vjust = -2.5, size = 3.5, color = "black", fontface = "bold") +
+  labs(
+    title = "Osprey State Occurrences across Data Source",
+    x = "State",
+    y = "Percentage of Total Occurrence"
+  ) +
+  scale_fill_manual(
+    values = c( "eBird" = "#ff7f00", "Flickr" = "#1f78b4" ), 
+    labels = c("eBird", "Flickr"), 
+    name = "Source"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5), 
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12, face = "bold", angle = 45, hjust = 1), 
+    axis.text.y = element_text(size = 12, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 11),
+    panel.grid.major.y = element_line(color = "gray80", linetype = "dashed"), 
+    panel.grid.major.x = element_blank() 
+  ) +
+  facet_wrap(~ source, scales = "free", ncol = 1) +
+  coord_flip() 
+```
+# Results
+The analysis of Flickr and eBird data reveals consistent trends in the seasonal distribution of Ospreys across the United States. Flickr photos indicate clear seasonal migration patterns, with Ospreys predominantly observed in northern states like New Jersey and Maryland during the summer months, followed by a shift to southern states such as Florida, California, Texas, Arizona, and North Carolina during the winter (Figure 2).
+
+A closer examination of the winter distribution shows strong alignment between the two datasets. The top four states with the highest recorded Osprey occurrences during winter are identical in both Flickr and eBird data (Figure 3), highlighting a high level of correlation between the two sources. 
+
+Flickr and eBird data exhibit consistent trends in the seasonal distribution of Ospreys across the United States, spanning spring, summer, fall, and winter (Figure 4).Furthermore, when comparing the top ten states where Ospreys are observed year-round, nine of these states match between Flickr and eBird datasets (Figure 5).
 
 # Conclusions
 
-\[\~200 words\]
-
-Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.
+The high degree of correlation between the two data sources, particularly in the top states for winter occurrences and year-round presence, highlights the reliability of photo-based citizen science data in reflecting species distribution patterns. These findings underscore the value of integrating alternative data sources like Flickr with traditional ecological datasets to enhance spatial and temporal coverage, offering a scalable approach to support conservation and monitoring efforts for migratory species like the Osprey.
 
 # References
 
-All sources are cited in a consistent manner
