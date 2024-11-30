@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -143,8 +143,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#materials-and-methods" id="toc-materials-and-methods" class="nav-link" data-scroll-target="#materials-and-methods">Materials and methods</a>
+  <ul class="collapse">
+  <li><a href="#display-distribution-of-ospreys-using-flickr-photos" id="toc-display-distribution-of-ospreys-using-flickr-photos" class="nav-link" data-scroll-target="#display-distribution-of-ospreys-using-flickr-photos">Display Distribution of Ospreys using Flickr Photos</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -185,12 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The Osprey (Pandion haliaetus) is a partial migratory bird species with a broad distribution across North America. Partial migration means that not all populations migrate, and the extent of migration depends on geographical location and environmental conditions. Ospreys breeding in northern latitudes (e.g., Canada and the northern United States) are typically obligate migrants, traveling to Central and South America for the winter. Those in southern parts of the United States may be year-round residents, depending on food availability and climate.</p>
 <p>Monitoring bird populations and migration patterns is vital for understanding ecological dynamics and informing conservation efforts. However, traditional monitoring approaches, such as field observations and curated datasets like eBird, are often resource-intensive and may leave gaps in spatial and temporal coverage. As such, there is a growing need to explore complementary data sources that can fill these gaps.</p>
 <p>This project investigates the potential of social media as an alternative data source for ecological monitoring by focusing on the seasonal occurrences and geographical distribution of Ospreys across the United States. Using geotagged Flickr photos and comparing them to formal bird observation data from eBird, the study aims to assess the extent to which trends in the presence and migration patterns of Ospreys captured through social media align with patterns documented in citizen science databases. By highlighting the utility of photo-based social media data, this project seeks to advance our understanding of how platforms like Flickr can contribute to ecological and avian studies, offering a scalable and accessible tool for biodiversity monitoring.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://pixabay.com/get/g5cd05cdf5191f1b5b29840a4b279b64ab7c9bfdfbabcfa5e3618f18e31eea7e74994e50abfa8a0727930313592fb8f3f85efaa72215dd46fd6661b1f796a7b21_1280.jpg" class="img-fluid figure-img"></p>
-<figcaption>Osprey Image</figcaption>
-</figure>
-</div>
+<p><img src="https://pixabay.com/get/g5cd05cdf5191f1b5b29840a4b279b64ab7c9bfdfbabcfa5e3618f18e31eea7e74994e50abfa8a0727930313592fb8f3f85efaa72215dd46fd6661b1f796a7b21_1280.jpg" class="img-fluid"></p>
 </section>
 <section id="materials-and-methods" class="level1">
 <h1>Materials and methods</h1>
@@ -200,6 +213,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>#Installing and loading libraries</p>
 <p>Let’s start by installing and loading the required R libraries:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"FlickrAPI"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"httr"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"jsonlite"</span>)</span>
@@ -213,8 +228,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"htmlwidgets"</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"widgetframe"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"nfox29/photosearcher"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FlickrAPI)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
@@ -237,6 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(photosearcher)</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">widgetframe_widgets_dir =</span> <span class="st">'widgets'</span> ) </span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">cache=</span><span class="cn">TRUE</span>)  <span class="co"># cache the results for quick compiling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>#Retrieving Flickr Photos</p>
 <ul>
@@ -247,6 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><pre><code>Set up minimum and maximum date (2000-2024, in this case)</code></pre></li>
 </ul>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Osprey <span class="ot">&lt;-</span> <span class="fu">photo_search</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mindate_taken =</span> <span class="st">"2000-01-01"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxdate_taken =</span> <span class="st">"2024-11-28"</span>, </span>
@@ -254,13 +275,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tags =</span> <span class="fu">c</span>(<span class="st">"Osprey"</span>, <span class="st">"osprey"</span>),</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">124.6813</span>,<span class="fl">25.12993</span>,<span class="sc">-</span><span class="fl">67.00742</span>,<span class="fl">49.38323</span>),</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">has_geo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>#Exploring Dataset</p>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Osprey <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">2</span>,<span class="at">align=</span><span class="st">"c"</span>)<span class="sc">%&gt;%</span> </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="table-responsive">
 <table class="table table-striped table-hover table-condensed caption-top" data-quarto-postprocess="true">
 <thead>
@@ -396,6 +421,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: center;">0</td>
+<td style="text-align: center;">89373851</td>
+<td style="text-align: center;">67778747@N00</td>
+<td style="text-align: center;">6c125a40d1</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">osprey-16</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">2006-01-21 20:04:14</td>
+<td style="text-align: center;">2008-03-04 21:48:31</td>
+<td style="text-align: center;">2000-01-01 01:36:43</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">210</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
+<td style="text-align: center;">33.95</td>
+<td style="text-align: center;">-83.32</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">2492982</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_s.jpg</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_t.jpg</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_m.jpg</td>
+<td style="text-align: center;">180</td>
+<td style="text-align: center;">240</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_q.jpg</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1.jpg</td>
+<td style="text-align: center;">375</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_n.jpg</td>
+<td style="text-align: center;">240</td>
+<td style="text-align: center;">320</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_z.jpg</td>
+<td style="text-align: center;">480</td>
+<td style="text-align: center;">640</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_c.jpg</td>
+<td style="text-align: center;">600</td>
+<td style="text-align: center;">800</td>
+<td style="text-align: center;">https://live.staticflickr.com/26/89373851_6c125a40d1_b.jpg</td>
+<td style="text-align: center;">768</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">All Rights Reserved</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
 <td style="text-align: center;">89373853</td>
 <td style="text-align: center;">67778747@N00</td>
 <td style="text-align: center;">1c06740445</td>
@@ -458,7 +547,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: center;">All Rights Reserved</td>
 <td style="text-align: center;">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">89371533</td>
 <td style="text-align: center;">67778747@N00</td>
@@ -522,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: center;">All Rights Reserved</td>
 <td style="text-align: center;">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">89371534</td>
 <td style="text-align: center;">67778747@N00</td>
@@ -586,70 +675,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: center;">All Rights Reserved</td>
 <td style="text-align: center;">NA</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">89371535</td>
-<td style="text-align: center;">67778747@N00</td>
-<td style="text-align: center;">e18352e29d</td>
-<td style="text-align: center;">34</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">osprey-03</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">2006-01-21 19:58:49</td>
-<td style="text-align: center;">2008-03-04 21:48:29</td>
-<td style="text-align: center;">2000-01-01 01:45:13</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">279</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">osprey military airplane helicopter marines athens georgia</td>
-<td style="text-align: center;">33.95</td>
-<td style="text-align: center;">-83.32</td>
-<td style="text-align: center;">16</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">2492982</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_s.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_t.jpg</td>
-<td style="text-align: center;">75</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_m.jpg</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_q.jpg</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">150</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d.jpg</td>
-<td style="text-align: center;">375</td>
-<td style="text-align: center;">500</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_n.jpg</td>
-<td style="text-align: center;">240</td>
-<td style="text-align: center;">320</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_z.jpg</td>
-<td style="text-align: center;">480</td>
-<td style="text-align: center;">640</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_c.jpg</td>
-<td style="text-align: center;">600</td>
-<td style="text-align: center;">800</td>
-<td style="text-align: center;">https://live.staticflickr.com/34/89371535_e18352e29d_b.jpg</td>
-<td style="text-align: center;">768</td>
-<td style="text-align: center;">1024</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">All Rights Reserved</td>
-<td style="text-align: center;">NA</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -662,18 +687,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Import the eBird txt file</li>
 </ul>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#auk_set_ebd_path(path = "path/to/eBird/data")</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ebird <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"ebird_Osprey_Oct-2024.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> T, <span class="at">quote =</span> <span class="st">""</span>, </span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> F, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>,<span class="st">" "</span>,<span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>#Explore Dataset</p>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ebird <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">2</span>,<span class="at">align=</span><span class="st">"c"</span>)<span class="sc">%&gt;%</span> </span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> </span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="table-responsive">
 <table class="table table-striped table-hover table-condensed caption-top" data-quarto-postprocess="true">
 <thead>
@@ -764,6 +795,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>#Format Data</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract month and year from the "datataken" column of Flickr data</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">format</span>(Osprey<span class="sc">$</span>datetaken, <span class="st">"%Y"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>Osprey<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">format</span>(Osprey<span class="sc">$</span>datetaken, <span class="st">"%m"</span>)</span>
@@ -784,6 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>ebird<span class="sc">$</span>season <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ebird<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">1</span>, <span class="dv">2</span>), <span class="st">"Winter"</span>,</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">ifelse</span>(ebird<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="st">"Spring"</span>,</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">ifelse</span>(ebird<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="st">"Summer"</span>, <span class="st">"Fall"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <section id="display-distribution-of-ospreys-using-flickr-photos" class="level2">
 <h2 class="anchored" data-anchor-id="display-distribution-of-ospreys-using-flickr-photos">Display Distribution of Ospreys using Flickr Photos</h2>
@@ -792,13 +826,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>#Assign States to Flickr Photos</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Import Shapefile of the US</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>us_states <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"gadm41_USA_1.shp"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -813,9 +849,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#remove all rows where state is NAs </span></span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>Osprey <span class="ot">&lt;-</span> Osprey[<span class="sc">!</span><span class="fu">is.na</span>(Osprey<span class="sc">$</span>state), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>#Visualizing Seasonal Geodistribution of Ospreys’ Occurrences</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the frequency of seasons </span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>summer_frequency <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"Summer"</span>) <span class="sc">%&gt;%</span></span>
@@ -875,16 +914,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> season, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>#Comparing Seasonal Geodistribution of Ospreys from Flickr to eBird</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the frequency of seasons </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>winter_frequency <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"Winter"</span>) <span class="sc">%&gt;%</span></span>
@@ -947,16 +989,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> source, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>#Overall Seasonal Trend of Observations</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot of seasons</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>seasons <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span></span>
@@ -1011,16 +1056,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>#Overall GeoDistribution of Ospreys in the US comparing both datasets</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#State freq</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>State_frequency <span class="ot">&lt;-</span> Osprey <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, <span class="at">name =</span> <span class="st">"frequency"</span>) <span class="sc">%&gt;%</span></span>
@@ -1081,10 +1129,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> source, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
