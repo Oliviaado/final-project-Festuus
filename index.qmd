@@ -107,7 +107,7 @@ See <https://science.ebird.org/en/use-ebird-data/download-ebird-data-products> t
 ```{r, message = FALSE, warning=FALSE}
 #auk_set_ebd_path(path = "path/to/eBird/data")
 
-ebird <- read.delim("osprey_Oct-2024.txt", sep = "\t", 
+ebird <- read.delim("ebird_Osprey_Oct-2024.txt", sep = "\t", 
                     header = T, quote = "", 
                     stringsAsFactors = F, na.strings = c(""," ",NA))
 
